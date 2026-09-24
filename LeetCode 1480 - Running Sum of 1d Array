@@ -1,0 +1,31 @@
+❓Question:
+Given an array nums, return its running sum. The running sum at each index is the sum of all elements from the beginning of the array up to that index.
+
+For example:
+Input:  [1, 2, 3, 4]
+Output: [1, 3, 6, 10]
+
+Because:
+1
+1 + 2 = 3
+1 + 2 + 3 = 6
+1 + 2 + 3 + 4 = 10
+
+✅Approach:
+Create a sum variable to keep track of the accumulated value. Traverse the array, add each element to sum, and store the result in a new array.
+
+Code:
+class Solution {
+    public int[] runningSum(int[] nums) {
+        int sum = 0;
+        int[] runningSum = new int[nums.length];
+        for (int i = 0; i < nums.length; i++) {
+            sum += nums[i];
+            runningSum[i] = sum;
+        }
+        return runningSum;
+    }
+}
+
+Time Complexity: O(n)
+Space Complexity: O(n)
