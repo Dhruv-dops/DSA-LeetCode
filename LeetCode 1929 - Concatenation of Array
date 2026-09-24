@@ -1,0 +1,24 @@
+❓Question:
+Given an integer array nums, create a new array ans of length 2n. The new array should contain the original array twice consecutively.
+
+For example:
+Input:  [1, 2, 1]
+Output: [1, 2, 1, 1, 2, 1]
+
+✅Approach:
+Create a new array with double the size of nums. Use a loop to place each element at its original index and again at i + nums.length.
+
+Code:
+class Solution {
+    public int[] getConcatenation(int[] nums) {
+        int[] ans = new int[nums.length * 2];
+        for (int i = 0; i < nums.length; i++) {
+            ans[i] = nums[i];
+            ans[i + nums.length] = nums[i];
+        }
+        return ans;
+    }
+}
+
+Time Complexity: O(n)
+Space Complexity: O(n)
