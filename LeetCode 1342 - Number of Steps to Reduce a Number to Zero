@@ -1,0 +1,35 @@
+❓Question:
+Given an integer num, find the number of steps required to reduce it to 0.
+
+For each step:
+If num is even, divide it by 2.
+If num is odd, subtract 1.
+
+For example:
+Input:  num = 14
+14 → 7 → 6 → 3 → 2 → 1 → 0
+So the answer is:
+6
+
+✅Approach:
+Use a while loop that continues until num becomes 0. For every iteration, check whether the number is even using % 2. Perform the required operation and increase the step counter.
+
+Code:
+class Solution {
+    public int numberOfSteps(int num) {
+        int count = 0;
+        while (num != 0) {
+            if (num % 2 == 0) {
+                num = num / 2;
+            }
+            else {
+                num = num - 1;
+            }
+            count++;
+        }
+        return count;
+    }
+}
+
+Time Complexity: O(log n)
+Space Complexity: O(1)
