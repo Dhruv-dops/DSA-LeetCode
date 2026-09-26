@@ -1,0 +1,29 @@
+❓Question:
+Given a 2D array accounts, where each row represents a customer and each value represents the money they have in a bank account, find the maximum total wealth among all customers.
+
+For example:
+Input:  [[1,2,3], [3,2,1]]
+Output: 6
+Customer 1: 1 + 2 + 3 = 6
+Customer 2: 3 + 2 + 1 = 6
+
+✅Approach:
+Use a nested loop. The outer loop goes through each customer, while the inner loop adds all the money in that customer's accounts. After calculating each customer's total, use Math.max() to keep track of the highest wealth.
+
+Code:
+class Solution {
+    public int maximumWealth(int[][] accounts) {
+        int wealth = 0;
+        for (int i = 0; i < accounts.length; i++) {
+            int sum = 0;
+            for (int j = 0; j < accounts[i].length; j++) {
+                sum += accounts[i][j];
+            }
+            wealth = Math.max(wealth, sum);
+        }
+        return wealth;
+    }
+}
+
+Time Complexity: O(m × n)
+Space Complexity: O(1)
