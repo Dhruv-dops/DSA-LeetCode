@@ -1,0 +1,37 @@
+❓Question:
+Given an integer array nums, find the majority element. The majority element is the element that appears more than n / 2 times in the array.
+
+For example:
+Input:  [3,2,3]
+Output: 3
+
+✅Approach:
+Use the Boyer-Moore Voting Algorithm. Keep a candidate and a count.
+If count becomes 0, choose the current element as the new candidate.
+If the current element equals the candidate, increase count.
+Otherwise, decrease count.
+Since the problem guarantees that a majority element always exists, the final candidate is the answer.
+
+Code:
+class Solution {
+    public int majorityElement(int[] nums) {
+        int candidate = nums[0];
+        int count = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (count == 0) {
+                candidate = nums[i];
+                count++;
+            }
+            else if (candidate == nums[i]) {
+                count++;
+            }
+            else {
+                count--;
+            }
+        }
+        return candidate;
+    }
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)
