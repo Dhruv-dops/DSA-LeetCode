@@ -1,0 +1,27 @@
+❓Question:
+Given an integer array nums, return true if any value appears at least twice. Return false if every element is unique.
+
+For example:
+Input:  [1,2,3,1]
+Output: true
+
+✅Approach:
+Use a HashMap to store the elements we have already seen. Before adding an element, check whether its key already exists using containsKey(). If it exists, a duplicate is found, so return true. If the loop finishes without finding a duplicate, return false.
+
+Code:
+class Solution {
+    public boolean containsDuplicate(int[] nums) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            if (map.containsKey(nums[i])) {
+                return true;
+            } else {
+                map.put(nums[i], i);
+            }
+        }
+        return false;
+    }
+}
+
+Time Complexity: O(n)
+Space Complexity: O(n)
