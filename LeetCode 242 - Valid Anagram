@@ -1,0 +1,41 @@
+❓Question
+Given two strings s and t, return true if t is an anagram of s, otherwise return false.
+An anagram contains the same characters with the same frequency, but the order can be different.
+
+Example
+Input:  s = "anagram", t = "nagaram"
+Output: true
+Input:  s = "rat", t = "car"
+Output: false
+
+✅Approach
+Create one HashMap for s and one for t.
+Count how many times each character occurs.
+If their lengths are different, return false.
+Compare both maps.
+If both maps contain exactly the same character-frequency pairs, return true.
+
+Code
+class Solution {
+    public boolean isAnagram(String s, String t) {
+        HashMap<Character, Integer> mapS = new HashMap<>();
+        HashMap<Character, Integer> mapT = new HashMap<>();
+        if(s.length() != t.length()){
+            return false;
+        }
+        for(int i = 0; i < s.length(); i++){
+            char ch = s.charAt(i);
+            char ch2 = t.charAt(i);
+            mapS.put(ch, mapS.getOrDefault(ch, 0) + 1);
+            mapT.put(ch2, mapT.getOrDefault(ch2, 0) + 1);
+        }
+        return mapS.equals(mapT);
+    }
+}
+
+Time Complexity
+O(n)
+We go through the strings once.
+Space Complexity
+O(n)
+The HashMaps store the characters and their frequencies.
