@@ -1,0 +1,45 @@
+❓Question
+Given two strings ransomNote and magazine, return true if ransomNote can be constructed using the letters from magazine.
+Each letter from magazine can only be used once.
+
+Example
+Input: ransomNote = "a"
+       magazine = "b"
+Output: false
+
+✅Approach
+Create a HashMap to store the frequency of characters in magazine.
+Traverse magazine and count every character.
+Traverse ransomNote.
+For each character, check how many are available in the map.
+If the count is 0, return false.
+Otherwise, use one occurrence by decreasing its count by 1.
+If we successfully process the whole ransomNote, return true.
+
+Code
+class Solution {
+    public boolean canConstruct(String ransomNote, String magazine) {
+        HashMap<Character, Integer> mapM = new HashMap<>();
+        if(ransomNote.length() > magazine.length()){
+            return false;
+        }
+        for(int i = 0; i < magazine.length(); i++){
+            char chM = magazine.charAt(i);
+            mapM.put(chM, mapM.getOrDefault(chM, 0) + 1);
+        }
+        for(int i = 0; i < ransomNote.length(); i++){
+            char ch = ransomNote.charAt(i);
+            int currentcounts = mapM.getOrDefault(ch, 0);
+            if(currentcounts == 0){
+                return false;
+            }
+            mapM.put(ch, currentcounts - 1);
+        }
+        return true;
+    }
+}
+
+Time Complexity
+O(n + m)
+Space Complexity
+O(n)
