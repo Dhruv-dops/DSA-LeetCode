@@ -1,0 +1,60 @@
+❓Question
+Given a string s containing lowercase and uppercase letters, return the length of the longest palindrome that can be built using those letters.
+Letters are case-sensitive, so "Aa" is not considered a palindrome.
+
+Example 1
+Input:  s = "abccccdd"
+Output: 7
+One possible palindrome is: dccaccd
+
+✅Approach
+Use a HashMap to count the frequency of every character.
+For every frequency:
+If it is even, we can use the entire count.
+If it is odd, we can use value - 1, leaving one character unused.
+If there is at least one odd-frequency character, we can place one of those characters in the middle.
+Return the resulting length.
+
+For example:
+a = 1
+b = 1
+c = 4
+d = 2
+
+We can use:
+c → 4
+d → 2
+a → 0 (from its pair)
+b → 0 (from its pair)
+Then use one odd character in the middle:
+4 + 2 + 1 = 7
+
+Code
+class Solution {
+    public int longestPalindrome(String s) {
+        HashMap<Character, Integer> map = new HashMap<>();
+        for(int i = 0; i < s.length(); i++){
+            char ch = s.charAt(i);
+            map.put(ch, map.getOrDefault(ch, 0) + 1);
+        }
+        boolean isOdd = false;
+        int longestString = 0;
+        for(int value : map.values()){
+            if(value % 2 == 0){
+                longestString += value;
+            }else{
+                longestString += value - 1;
+                isOdd = true;
+            }
+        }
+        if(isOdd){
+            longestString += 1;
+        }
+        return longestString;
+    }
+}
+
+Time Complexity
+O(n)
+Space Complexity
+O(n)
