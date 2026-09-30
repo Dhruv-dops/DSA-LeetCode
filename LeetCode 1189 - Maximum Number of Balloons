@@ -1,0 +1,48 @@
+❓Question
+Given a string text, use the characters of text to form as many instances of the word "balloon" as possible.
+Each character can be used at most once. Return the maximum number of "balloon" that can be formed.
+
+Example 1
+Input: text = "nlaebolko"
+Output: 1
+
+xample 2
+Input: text = "loonbalxballpoon"
+Output: 2
+
+✅Approach
+Create a HashMap to count only the characters needed for "balloon".
+Count b, a, l, o, and n.
+Each "balloon" needs:
+1 b
+1 a
+2 l
+2 o
+1 n
+Therefore, divide the count of l and o by 2.
+The character with the smallest available count determines how many "balloon" words can be formed.
+
+Code
+class Solution {
+    public int maxNumberOfBalloons(String text) {
+        HashMap<Character, Integer> map = new HashMap<>();
+        for(int i = 0; i < text.length(); i++){
+            char ch = text.charAt(i);
+            if(ch == 'b' || ch == 'a' || ch == 'l' ||
+               ch == 'o' || ch == 'n'){
+                map.put(ch, map.getOrDefault(ch, 0) + 1);
+            }
+        }
+        int b = map.getOrDefault('b', 0);
+        int a = map.getOrDefault('a', 0);
+        int l = map.getOrDefault('l', 0) / 2;
+        int o = map.getOrDefault('o', 0) / 2;
+        int n = map.getOrDefault('n', 0);
+        return Math.min(Math.min(Math.min(b, a), Math.min(l, o)),n);
+    }
+}
+
+Time Complexity
+O(n)
+Space Complexity
+O(1)
