@@ -1,0 +1,57 @@
+❓Question
+You are given an integer array height.
+Each element represents the height of a vertical line. Find two lines that can form a container containing the maximum amount of water.
+The container cannot be slanted.
+
+Example
+For:
+height = [1,8,6,2,5,4,8,3,7]
+The maximum area is:
+49
+because the lines with heights 8 and 7 are 7 units apart:
+width = 8
+height = min(8,7) = 7
+area = 8 × 7 = 56
+Correction: for the standard example, the indices are 1 and 8, so the width is 7 and:
+area = 7 × 7 = 49
+
+✅Approach
+Use the two-pointer approach.
+start starts from the left.
+end starts from the right.
+
+Calculate:
+
+width = end - start
+height = minimum of both heights
+area = width × height
+Store the maximum area.
+Move the pointer having the smaller height because the smaller line limits the water level.
+In your code, when both heights are equal, you move end.
+
+Code
+class Solution {
+    public int maxArea(int[] height) {
+        int start = 0;
+        int end = height.length - 1;
+        int sum = 0;
+        while(start < end) {
+            int diff = end - start;
+            int min = Math.min(height[start], height[end]);
+            if(sum < diff * min) {
+                sum = diff * min;
+            }
+            if(height[start] > height[end] || height[start] == height[end]) {
+                end--;
+            } else {
+                start++;
+            }
+        }
+        return sum;
+    }
+}
+
+Time Complexity
+O(n)
+Space Complexity
+O(1)
