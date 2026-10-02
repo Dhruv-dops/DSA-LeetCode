@@ -1,0 +1,40 @@
+❓Question
+Given an integer array nums, move all 0s to the end while maintaining the relative order of the non-zero elements.
+You must do it in-place, without making a copy of the array.
+
+Example
+Input:
+nums = [0,1,0,3,12]
+Output:
+[1,3,12,0,0]
+Input:
+nums = [0]
+Output:
+[0]
+
+✅Approach
+Use two pointers:
+p2 scans the entire array.
+p1 points to the position where the next non-zero element should go.
+Whenever nums[p2] != 0, swap nums[p1] and nums[p2].
+Then increase p1.
+This automatically pushes all zeroes toward the end while keeping non-zero elements in their original order.
+
+Code
+class Solution {
+    public void moveZeroes(int[] nums) {
+        int p1 = 0;
+        for(int p2 = 0; p2 < nums.length; p2++) {
+            if(nums[p2] != 0) {
+                int temp = nums[p1];
+                nums[p1] = nums[p2];
+                nums[p2] = temp;
+                p1++;
+            }
+        }
+    }
+}
+Time Complexity
+O(n)
+Space Complexity
+O(1)
