@@ -1,0 +1,70 @@
+❓Question
+Given an integer array nums, find all unique triplets [nums[i], nums[j], nums[k]] such that:
+nums[i] + nums[j] + nums[k] = 0
+The same triplet should not be repeated.
+
+Example
+
+Input:
+nums = [-1,0,1,2,-1,-4]
+Output: [[-1,-1,2],[-1,0,1]]
+
+Input:
+nums = [0,1,1]
+Output:[]
+
+✅Approach
+First sort the array.
+Then:
+Fix one element using i.
+Use two pointers:
+j = i + 1
+k = nums.length - 1
+
+Calculate:
+sum = nums[i] + nums[j] + nums[k]
+If sum == 0, store the triplet.
+If sum < 0, increase j to make the sum larger.
+If sum > 0, decrease k to make the sum smaller.
+Skip duplicate values to avoid duplicate triplets.
+
+Code
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+        Arrays.sort(nums);
+        List<List<Integer>> list = new ArrayList<>();
+        for(int i = 0; i < nums.length; i++) {
+            if(nums[i] > 0) {
+                break;
+            }
+            if(i > 0 && nums[i] == nums[i - 1]) {
+                continue;
+            }
+            int j = i + 1;
+            int k = nums.length - 1;
+            while(j < k) {
+                int sum = nums[i] + nums[j] + nums[k];
+                if(sum == 0) {
+                    list.add(Arrays.asList(nums[i], nums[j], nums[k]));
+                    while(j < k && nums[j] == nums[j + 1]) {
+                        j++;
+                    }
+                    while(j < k && nums[k] == nums[k - 1]) {
+                        k--;
+                    }
+                    j++;
+                    k--;
+                } else if(sum < 0) {
+                    j++;
+                } else {
+                    k--;
+                }
+            }
+        }
+        return list;
+    }
+}
+Time Complexity
+O(n²)
+Space Complexity
+O(1) extra space, excluding the output list.
