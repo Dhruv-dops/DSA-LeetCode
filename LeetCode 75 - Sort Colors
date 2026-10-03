@@ -1,0 +1,55 @@
+❓Question
+You are given an array nums containing 0, 1, and 2.
+Sort the array in-place so that:
+0 → 1 → 2
+You cannot use the library's sorting function.
+
+Example
+Input: nums = [2,0,2,1,1,0]
+Output: [0,0,1,1,2,2]
+
+✅Approach — Dutch National Flag / Three Pointers
+Use three pointers:
+low   → position where next 0 should go
+mid   → current element
+high  → position where next 2 should go
+There are three cases:
+1. nums[mid] == 0
+Swap nums[mid] with nums[low]
+Move low++
+Move mid++
+2. nums[mid] == 1
+1 is already in the correct middle area.
+Just move mid++.
+3. nums[mid] == 2
+Swap nums[mid] with nums[high]
+Move high--
+Do not move mid, because the value coming from high still needs to be checked.
+
+Code
+class Solution {
+    public void sortColors(int[] nums) {
+        int low = 0;
+        int mid = 0;
+        int high = nums.length - 1;
+        while (mid <= high) {
+            if (nums[mid] == 0) {
+                int temp = nums[low];
+                nums[low] = nums[mid];
+                nums[mid] = temp;
+                mid++;
+                low++;
+            } else if (nums[mid] == 2) {
+                int temp = nums[high];
+                nums[high] = nums[mid];
+                nums[mid] = temp;
+                high--;
+            } else {
+                mid++;
+            }
+        }
+    }
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)
