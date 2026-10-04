@@ -1,0 +1,79 @@
+Question
+Given an integer array nums and an integer target, return all unique quadruplets [nums[a], nums[b], nums[c], nums[d]] such that:
+0 <= a, b, c, d < n
+a, b, c, d are distinct
+nums[a] + nums[b] + nums[c] + nums[d] == target
+The answer can be returned in any order.
+
+Example
+Input:
+nums = [1,0,-1,0,-2,2], target = 0
+Output:
+[[-2,-1,1,2],
+ [-2,0,0,2],
+ [-1,0,0,1]]
+
+Approach — Sorting + Two Pointers
+First sort the array.
+Use a to select the first number.
+Use b to select the second number.
+Use two pointers:
+c = b + 1
+d = nums.length - 1
+Calculate the sum of the four numbers.
+If:
+sum == target → store quadruplet and move both pointers.
+sum < target → c++
+sum > target → d--
+Skip duplicate values for a, b, c, and d to ensure unique quadruplets.
+
+Code
+class Solution {
+    public List<List<Integer>> fourSum(int[] nums, int target) {
+        List<List<Integer>> list = new ArrayList<>();
+        Arrays.sort(nums);
+        for (int a = 0; a < nums.length; a++) {
+            if (a > 0 && nums[a] == nums[a - 1]) {
+                continue;
+            }
+            for (int b = a + 1; b < nums.length; b++) {
+                if (b > a + 1 && nums[b] == nums[b - 1]) {
+                    continue;
+                }
+                int c = b + 1;
+                int d = nums.length - 1;
+                while (c < d) {
+                    long sum = (long) nums[a]
+                             + nums[b]
+                             + nums[c]
+                             + nums[d];
+                    if (sum == target) {
+                        list.add(Arrays.asList(
+                            nums[a], nums[b], nums[c], nums[d]
+                        ));
+
+                        while (c < d && nums[c] == nums[c + 1]) {
+                            c++;
+                        }
+                        while (c < d && nums[d] == nums[d - 1]) {
+                            d--;
+                        }
+                        c++;
+                        d--;
+
+                    } else if (sum < target) {
+                        c++;
+                    } else {
+                        d--;
+                    }
+                }
+            }
+        }
+        return list;
+    }
+}
+
+Time Complexity: O(n³)
+Sorting = O(n log n)
+Three nested levels effectively give O(n³)
+Space Complexity: O(1)
