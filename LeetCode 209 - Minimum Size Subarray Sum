@@ -1,0 +1,50 @@
+❓Question
+Given an array of positive integers nums and a positive integer target, return the minimal length of a subarray whose sum is greater than or equal to target.
+If there is no such subarray, return 0.
+
+Example
+Input:
+target = 7
+nums = [2,3,1,2,4,3]
+Output: 2
+Explanation:
+The subarray [4,3] has:
+4 + 3 = 7
+Its length is 2, which is the minimum possible.
+
+✅Approach — Sliding Window
+Use two pointers:
+low  → start of window
+high → end of window
+Keep adding nums[high] to sum.
+Once sum >= target, we have a valid window.
+Calculate its length:
+high - low + 1
+Try to make the window smaller by removing nums[low].
+Continue until the sum becomes smaller than target.
+Then move high forward again.
+Because all numbers are positive, removing an element always decreases the sum, which makes sliding window work.
+
+Code
+class Solution {
+    public int minSubArrayLen(int target, int[] nums) {
+        int res = Integer.MAX_VALUE;
+        int low = 0;
+        int high = 0;
+        int sum = 0;
+        while (high < nums.length) {
+            sum += nums[high];
+            while (sum >= target) {
+                int count = high - low + 1;
+                res = Math.min(count, res);
+                sum = sum - nums[low];
+                low++;
+            }
+            high++;
+        }
+        return res == Integer.MAX_VALUE ? 0 : res;
+    }
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)
