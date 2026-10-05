@@ -1,0 +1,59 @@
+❓Question
+You are given an integer array nums and an integer k.
+Find a contiguous subarray whose length is exactly k and which has the maximum average value.
+Return the maximum average.
+
+Example
+Input:
+nums = [1,12,-5,-6,50,3]
+k = 4
+Output: 12.75000
+Explanation:
+The subarray is:
+[12,-5,-6,50]
+Sum:
+12 + (-5) + (-6) + 50 = 51
+Average:
+51 / 4 = 12.75
+
+✅Approach — Fixed Size Sliding Window
+Since the subarray length must always be k, use a fixed-size sliding window.
+First calculate the sum of the first k elements.
+Then slide the window:
+[1, 12, -5, -6]  →  [12, -5, -6, 50]
+When moving the window:
+Remove the element leaving from the left.
+Add the new element entering from the right.
+So: sum = sum - nums[low] + nums[high];
+Keep track of the maximum window sum.
+Finally: maximum average = maximum sum / k
+
+Code
+class Solution {
+    public double findMaxAverage(int[] nums, int k) {
+        int sum = 0;
+        int res = Integer.MIN_VALUE;
+        int low = 0;
+        int high = k - 1;
+        // First window
+        for (int i = low; i <= high; i++) {
+            sum += nums[i];
+        }
+        while (high < nums.length) {
+            res = Math.max(sum, res);
+            low++;
+            high++;
+            if (high >= nums.length) {
+                break;
+            } else {
+                sum -= nums[low - 1];
+                sum += nums[high];
+            }
+        }
+        double average = (double) res / k;
+        return average;
+    }
+}
+
+Time Complexity: O(n)
+Space Complexity: O(1)
